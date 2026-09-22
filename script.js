@@ -8,7 +8,7 @@
 // =====================================================
 
 const WEBHOOK_URL =
-    "https://sports-happened-char-rap.trycloudflare.com/webhook/7eda8b2f-0950-4839-afe7-3d77534030d5/chat";
+    "https://sports-happened-char-rap.trycloudflare.com/webhook/b570bc23-53ae-453e-bccf-6142c8ce1b38/chat";
 
 
 // مثال:

@@ -8,7 +8,7 @@
 // =====================================================
 
 const WEBHOOK_URL =
-    "https://sports-happened-char-rap.trycloudflare.com/webhook/b570bc23-53ae-453e-bccf-6142c8ce1b38/chat";
+    "https://coins-art-neon-decreased.trycloudflare.com/webhook/b570bc23-53ae-453e-bccf-6142c8ce1b38/chat";
 
 
 // مثال:

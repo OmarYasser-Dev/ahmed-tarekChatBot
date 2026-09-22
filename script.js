@@ -45,7 +45,13 @@ const sendButton =
 const typingIndicator =
     document.getElementById("typing-indicator");
 
-const welcomeMessage =
+const resetChat =
+    document.getElementById("reset-chat");
+
+const SESSION_STORAGE_KEY =
+    "gomaa_ai_chat_session";
+
+let welcomeMessage =
     document.getElementById("welcome-message");
 
 
@@ -53,29 +59,46 @@ const welcomeMessage =
 // 3. Session ID
 // =====================================================
 
+function createSessionId() {
+
+    return (
+        "gomaa-" +
+        Date.now() +
+        "-" +
+        Math.random()
+            .toString(36)
+            .substring(2, 10)
+    );
+}
+
+
 function getSessionId() {
 
-    const storageKey =
-        "gomaa_ai_chat_session";
-
     let sessionId =
-        localStorage.getItem(storageKey);
+        localStorage.getItem(SESSION_STORAGE_KEY);
 
     if (!sessionId) {
 
-        sessionId =
-            "gomaa-" +
-            Date.now() +
-            "-" +
-            Math.random()
-                .toString(36)
-                .substring(2, 10);
+        sessionId = createSessionId();
 
         localStorage.setItem(
-            storageKey,
+            SESSION_STORAGE_KEY,
             sessionId
         );
     }
+
+    return sessionId;
+}
+
+
+function resetSessionId() {
+
+    const sessionId = createSessionId();
+
+    localStorage.setItem(
+        SESSION_STORAGE_KEY,
+        sessionId
+    );
 
     return sessionId;
 }
@@ -155,6 +178,53 @@ chatToggle.addEventListener(
 closeChat.addEventListener(
     "click",
     closeChatWindow
+);
+
+
+function getWelcomeMarkup() {
+
+    return `
+        <div id="welcome-message" class="welcome-message">
+            <div class="welcome-icon">
+                <span class="welcome-glow" aria-hidden="true"></span>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M12 3V5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    <rect x="4" y="6" width="16" height="13" rx="4" stroke="currentColor" stroke-width="1.8"/>
+                    <circle cx="9" cy="12" r="1" fill="currentColor"/>
+                    <circle cx="15" cy="12" r="1" fill="currentColor"/>
+                </svg>
+            </div>
+            <h3>تعالى أجاوبك عاللي فبالك!</h3>
+            <p>اسألني عن المنهج أو الدروس أو أي حاجة محتاج تعرفها.</p>
+        </div>
+    `;
+}
+
+
+function resetConversation() {
+
+    hideTyping();
+
+    messagesContainer.replaceChildren();
+    messagesContainer.innerHTML = getWelcomeMarkup();
+
+    welcomeMessage =
+        document.getElementById("welcome-message");
+
+    resetSessionId();
+
+    chatInput.value = "";
+    autoResizeTextarea();
+
+    sendButton.disabled = false;
+    chatInput.disabled = false;
+    chatInput.focus();
+}
+
+
+resetChat.addEventListener(
+    "click",
+    resetConversation
 );
 
 
@@ -313,6 +383,26 @@ async function sendMessage() {
     }
 
 
+    // إخفاء رسالة الترحيب بعد أول سؤال
+    if (welcomeMessage) {
+
+        welcomeMessage.remove();
+    }
+
+
+    // إضافة رسالة المستخدم أولاً حتى لو مفيش اتصال
+    createMessage(
+        message,
+        "user"
+    );
+
+
+    // تنظيف الحقل
+    chatInput.value = "";
+
+    autoResizeTextarea();
+
+
     // التأكد من وجود الرابط
     if (
         !WEBHOOK_URL ||
@@ -328,26 +418,6 @@ async function sendMessage() {
 
         return;
     }
-
-
-    // إخفاء رسالة الترحيب بعد أول سؤال
-    if (welcomeMessage) {
-
-        welcomeMessage.remove();
-    }
-
-
-    // إضافة رسالة المستخدم
-    createMessage(
-        message,
-        "user"
-    );
-
-
-    // تنظيف الحقل
-    chatInput.value = "";
-
-    autoResizeTextarea();
 
 
     // تعطيل الإرسال مؤقتاً

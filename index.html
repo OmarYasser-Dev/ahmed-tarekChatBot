@@ -45,25 +45,34 @@
                     </div>
 
                     <div class="header-text">
-                        <strong>مساعد المنصة</strong>
+                        <strong>المساعد الذكي لمنصة عبقري لغة</strong>
                         <span>
                             <i class="online-dot"></i>
-                           معاك في اي وقت
+                           معاك طول اليوم
                         </span>
                     </div>
                 </div>
 
-                <button
-                    id="close-chat"
-                    class="close-chat"
-                    type="button"
-                    aria-label="إغلاق المحادثة"
-                >
-                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                        <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                </button>
+                <div class="header-actions">
+                    <button
+                        id="close-chat"
+                        class="header-icon-btn close-chat"
+                        type="button"
+                        aria-label="إغلاق المحادثة"
+                    >
+                        <span class="icon-x" aria-hidden="true"></span>
+                    </button>
+
+                    <button
+                        id="reset-chat"
+                        class="header-icon-btn reset-chat"
+                        type="button"
+                        aria-label="بدء محادثة جديدة"
+                        title="بدء محادثة جديدة"
+                    >
+                        <span class="icon-refresh" aria-hidden="true"></span>
+                    </button>
+                </div>
             </header>
 
             <main id="chat-messages" class="chat-messages">
@@ -77,8 +86,8 @@
                             <circle cx="15" cy="12" r="1" fill="currentColor"/>
                         </svg>
                     </div>
-                    <h3>اسألني ي حبي</h3>
-                    <p>اسألني عن المنهج أو الدروس أو أي حاجة محتاج تعرفها.</p>
+                    <h3>أسألني أي حاجة هنا ي حبي</h3>
+                    <p>أسألني عن أي تفاصيل محتاج تعرفها</p>
                 </div>
             </main>
 
@@ -94,7 +103,7 @@
                         id="chat-input"
                         rows="1"
                         maxlength="3000"
-                        placeholder="اكتب سؤالك هنا..."
+                        placeholder="اكتب سؤالك هنا ي حبي ..."
                         aria-label="اكتب سؤالك"
                     ></textarea>
 

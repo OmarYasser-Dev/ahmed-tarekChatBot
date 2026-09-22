@@ -8,7 +8,7 @@
 // =====================================================
 
 const WEBHOOK_URL =
-    "ضع_رابط_الويب_هوك_هنا";
+    "https://sports-happened-char-rap.trycloudflare.com/webhook/7eda8b2f-0950-4839-afe7-3d77534030d5/chat";
 
 
 // مثال:
